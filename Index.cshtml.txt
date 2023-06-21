@@ -1,0 +1,61 @@
+@*@model IEnumerable<FirstMVCWebApp.Models.EmpModel>*@
+    @using FirstMVCWebApp.Models;
+
+
+
+@{
+    ViewData["Title"] = "Index";
+    
+}
+
+<h1>@ViewBag.msg</h1>
+@*<h1>Total Number of Employees = @ViewBag.NoOfEmployees</h1>*@
+<h1>
+   Total Number of Employees = @TempData["Empcnt"]</h1>
+<hr/>
+<h2><u>Age wise employees</u></h2>
+<h3>Age 20=@ViewData["20age"]</h3>
+<h3>Age 21=@ViewData["21age"]</h3>
+<h3>Age 22=@ViewData["22age"]</h3>
+<h3>Age23=@ViewData["23age"]</h3>
+<hr/>
+<p>
+    <a asp-action="AddEmployee">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                EmployeeID
+            </th>
+            <th>
+                EmployeeName
+            </th>
+            <th>
+                Age
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@*@foreach (var item in ViewBag.emplist) {*@
+    @foreach(EmpModel item in (List<EmpModel>)ViewData["emplist"]){
+        <tr>
+            <td>
+                    @item.Empid
+            </td>
+            <td>
+               @item.EmpName
+            </td>
+            <td>
+                @item.Age
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "EditEmployee", new { id=item.Empid }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.Empid }) |
+                    @Html.ActionLink("Delete", "DeleteEmployee", new {  id=item.Empid })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
